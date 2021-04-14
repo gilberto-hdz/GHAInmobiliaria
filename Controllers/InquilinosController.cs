@@ -9,23 +9,24 @@ using System.Threading.Tasks;
 
 namespace GHAInmobiliaria.Controllers
 {
-    public class PropietariosController : Controller
+    public class InquilinosController : Controller
     {
-        private readonly IConfiguration config;
-        private readonly RepositorioPropietario repositorioPropietario;
 
-        public PropietariosController(IConfiguration config)
+        private readonly IConfiguration config;
+        private readonly RepositorioInquilino repositorioInquilino;
+
+        public InquilinosController(IConfiguration config)
         {
             this.config = config;
-            this.repositorioPropietario = new RepositorioPropietario(config);
+            this.repositorioInquilino = new RepositorioInquilino(config);
         }
 
-        // GET: PropietariosController
+        // GET: InquilinosController
         public ActionResult Index()
         {
             try
             {
-                List<Propietario> lista = repositorioPropietario.ObtenerTodos();
+                List<Inquilino> lista = repositorioInquilino.ObtenerTodos();
                 return View(lista);
             }
             catch (Exception)
@@ -35,13 +36,13 @@ namespace GHAInmobiliaria.Controllers
 
         }
 
-        // GET: PropietariosController/Detalles/5
+        // GET: InquilinosController/Detalles/5
         public ActionResult Detalles(int id)
         {
             try
             {
-                Propietario propietario = repositorioPropietario.ObtenerPorId(id);
-                return View(propietario);
+                Inquilino inquilino = repositorioInquilino.ObtenerPorId(id);
+                return View(inquilino);
             }
             catch (Exception)
             {
@@ -50,27 +51,27 @@ namespace GHAInmobiliaria.Controllers
             }
         }
 
-        // GET: PropietariosController/Crear
+        // GET: InquilinosController/Crear
         public ActionResult Crear()
         {
             return View();
         }
 
-        // POST: PropietariosController/Crear
+        // POST: InquilinosController/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear(Propietario propietario)
+        public ActionResult Crear(Inquilino inquilino)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    repositorioPropietario.Alta(propietario);
+                    repositorioInquilino.Alta(inquilino);
                     return RedirectToAction(nameof(Index));
                 }
                 else
                 {
-                    return View(propietario);
+                    return View(inquilino);
                 }
 
             }
@@ -80,13 +81,13 @@ namespace GHAInmobiliaria.Controllers
             }
         }
 
-        // GET: PropietariosController/Editar/5
+        // GET: InquilinosController/Editar/5
         public ActionResult Editar(int id)
         {
             try
             {
-                Propietario propietario = repositorioPropietario.ObtenerPorId(id);
-                return View(propietario);
+                Inquilino inquilino = repositorioInquilino.ObtenerPorId(id);
+                return View(inquilino);
             }
             catch (Exception)
             {
@@ -95,40 +96,40 @@ namespace GHAInmobiliaria.Controllers
             }
         }
 
-        // POST: PropietariosController/Editar/5
+        // POST: InquilinosController/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar(int id, Propietario propietario)
+        public ActionResult Editar(int id, Inquilino inquilino)
         {
             try
             {
-                repositorioPropietario.Modificacion(propietario);
+                repositorioInquilino.Modificacion(inquilino);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
         }
 
-        // GET: PropietariosController/Eliminar/5
+        // GET: InquilinosController/Eliminar/5
         public ActionResult Eliminar(int id)
         {
-            Propietario propietario = repositorioPropietario.ObtenerPorId(id);
-            return View(propietario);
+            Inquilino inquilino = repositorioInquilino.ObtenerPorId(id);
+            return View(inquilino);
         }
 
-        // POST: PropietariosController/Eliminar/5
+        // POST: InquilinosController/Eliminar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Eliminar(int id, Propietario propietario)
+        public ActionResult Eliminar(int id, Inquilino inquilino)
         {
             try
             {
-                repositorioPropietario.Baja(id);
+                repositorioInquilino.Baja(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception)
+            catch (Exception)
             {
                 throw;
             }
