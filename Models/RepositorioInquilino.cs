@@ -23,7 +23,7 @@ namespace GHAInmobiliaria.Controllers
             List<Inquilino> listaInquilinos = new List<Inquilino>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT Id, Nombre, Apellido, Dni, Telefono, Email" +
+                string sql = $"SELECT Id, Nombre, Apellido, Dni, Telefono, Email, DireccionTrabajo, DniGarante, NombreGarante, ApellidoGarante" +
                     $" FROM Inquilinos";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -40,6 +40,9 @@ namespace GHAInmobiliaria.Controllers
                             Dni = reader.GetString(3),
                             Telefono = reader.GetString(4),
                             Email = reader.GetString(5),
+                            DireccionTrabajo = reader.GetString(6),
+                            NombreGarante = reader.GetString(7),
+                            ApellidoGarante = reader.GetString(8)
                         };
                         listaInquilinos.Add(inquilino);
                     }
@@ -54,8 +57,8 @@ namespace GHAInmobiliaria.Controllers
             int resultado = -1;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"INSERT INTO Inquilinos (Nombre, Apellido, Dni, Telefono, Email) " +
-                    $"VALUES (@nombre, @apellido, @dni, @telefono, @email);" +
+                string sql = $"INSERT INTO Inquilinos (Nombre, Apellido, Dni, Telefono, Email, DireccionTrabajo, DniGarante, NombreGarante, ApellidoGarante) " +
+                    $"VALUES (@nombre, @apellido, @dni, @telefono, @email, @direccionTrabajo, @dniGarante, @nombreGarante, @apellidoGarante);" +
                     "SELECT SCOPE_IDENTITY();";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -65,6 +68,10 @@ namespace GHAInmobiliaria.Controllers
                     command.Parameters.AddWithValue("@dni", inquilino.Dni);
                     command.Parameters.AddWithValue("@telefono", inquilino.Telefono);
                     command.Parameters.AddWithValue("@email", inquilino.Email);
+                    command.Parameters.AddWithValue("@direccionTrabajo", inquilino.DireccionTrabajo);
+                    command.Parameters.AddWithValue("@dniGarante", inquilino.DniGarante);
+                    command.Parameters.AddWithValue("@nombreGarante", inquilino.NombreGarante);
+                    command.Parameters.AddWithValue("@apellidoGarante", inquilino.ApellidoGarante);
                     connection.Open();
                     resultado = Convert.ToInt32(command.ExecuteScalar());
                     inquilino.Id = resultado;
@@ -79,7 +86,7 @@ namespace GHAInmobiliaria.Controllers
             Inquilino inquilino = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sql = $"SELECT Id, Nombre, Apellido, Dni, Telefono, Email FROM Inquilinos" +
+                string sql = $"SELECT Id, Nombre, Apellido, Dni, Telefono, Email, DireccionTrabajo, DniGarante, NombreGarante, ApellidoGarante FROM Inquilinos" +
                     $" WHERE Id=@id";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -97,6 +104,9 @@ namespace GHAInmobiliaria.Controllers
                             Dni = reader.GetString(3),
                             Telefono = reader.GetString(4),
                             Email = reader.GetString(5),
+                            DireccionTrabajo = reader.GetString(6),
+                            NombreGarante = reader.GetString(7),
+                            ApellidoGarante = reader.GetString(8)
                         };
                     }
                     connection.Close();
@@ -111,6 +121,7 @@ namespace GHAInmobiliaria.Controllers
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sql = $"UPDATE Inquilinos SET Nombre=@nombre, Apellido=@apellido, Dni=@dni, Telefono=@telefono, Email=@email " +
+                    "DireccionTrabajo=@direccionTrabajo, DniGarante=@dniGarante, NombreGarante=@nombreGarante, ApellidoGarante=@apellidoGarante" +
                     $"WHERE Id = @id";
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
@@ -120,6 +131,10 @@ namespace GHAInmobiliaria.Controllers
                     command.Parameters.AddWithValue("@dni", inquilino.Dni);
                     command.Parameters.AddWithValue("@telefono", inquilino.Telefono);
                     command.Parameters.AddWithValue("@email", inquilino.Email);
+                    command.Parameters.AddWithValue("@direccionTrabajo", inquilino.DireccionTrabajo);
+                    command.Parameters.AddWithValue("@dniGarante", inquilino.DniGarante);
+                    command.Parameters.AddWithValue("@nombreGarante", inquilino.NombreGarante);
+                    command.Parameters.AddWithValue("@apellidoGarante", inquilino.ApellidoGarante);
                     command.Parameters.AddWithValue("@id", inquilino.Id);
                     connection.Open();
                     resultado = command.ExecuteNonQuery();

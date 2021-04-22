@@ -17,11 +17,20 @@ namespace GHAInmobiliaria.Models
 		public string Apellido { get; set; }
 		[Required]
 		public string Dni { get; set; }
+		[Required]
 		public string Telefono { get; set; }
 		[Required, EmailAddress]
 		public string Email { get; set; }
+		[Required]
+		public string DireccionTrabajo { get; set; }
+		[Required]
+        public string DniGarante { get; set; }
+		[Required]
+        public string NombreGarante { get; set; }
+		[Required]
+        public string  ApellidoGarante { get; set; }
 
-        public override string ToString()
+		public override string ToString()
         {
 			return $"{Nombre} {Apellido}, ({Id})";
         }
