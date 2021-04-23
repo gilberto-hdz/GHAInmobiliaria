@@ -92,7 +92,8 @@ namespace GHAInmobiliaria.Models
 			}
 			return res;
 		}
-		//
+		
+
 		public List<Inmueble> ObtenerTodos()
 		{
 			List<Inmueble> res = new List<Inmueble>();

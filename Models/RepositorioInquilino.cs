@@ -41,8 +41,9 @@ namespace GHAInmobiliaria.Controllers
                             Telefono = reader.GetString(4),
                             Email = reader.GetString(5),
                             DireccionTrabajo = reader.GetString(6),
-                            NombreGarante = reader.GetString(7),
-                            ApellidoGarante = reader.GetString(8)
+                            DniGarante = reader.GetString(7),
+                            NombreGarante = reader.GetString(8),
+                            ApellidoGarante = reader.GetString(9)
                         };
                         listaInquilinos.Add(inquilino);
                     }
